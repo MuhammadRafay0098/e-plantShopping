@@ -1,49 +1,35 @@
-
 import React, { useState } from 'react';
-import ProductList from './ProductList';
 import './App.css';
-import AboutUs from './AboutUs';
+import ProductList from './ProductList';
+import AboutUs from './AboutUs'; // Make sure you create this file
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 function App() {
-  
-  const [showProductList, setShowProductList] = useState(false);
+  const [showLanding, setShowLanding] = useState(true);
 
-  const handleGetStartedClick = () => {
-    setShowProductList(true);
+  const handleGetStarted = () => {
+    setShowLanding(false);
   };
 
   const handleHomeClick = () => {
-    setShowProductList(false);
+    setShowLanding(true);
   };
 
   return (
-    <div className="app-container">
-      <div className={`landing-page ${showProductList ? 'fade-out' : ''}`}>
-        <div className="background-image"></div>
-        <div className="content">
-         <div className="landing_content">
-         <h1>Welcome To Paradise Nursery</h1>
-          <div className="divider"></div>
-          <p>Where Green Meets Serenity</p>
-         
-          <button className="get-started-button" onClick={handleGetStartedClick}>
-            Get Started
-          </button>
-         </div>
-          <div className="aboutus_container">
-          <AboutUs/>
+    <div>
+      {showLanding ? (
+        <div className="landing-page">
+          <div className="landing-content">
+            <h1>Paradise Nursery</h1>
+            <p>Where Green Meets Serenity</p>
+            <button className="get-started-btn" onClick={handleGetStarted}>Get Started</button>
           </div>
-          </div>
-
-      </div>
-      <div className={`product-list-container ${showProductList ? 'visible' : ''}`}>
-        <ProductList onHomeClick={handleHomeClick}/>
-      </div>
+        </div>
+      ) : (
+        <ProductList onHomeClick={handleHomeClick} />
+      )}
     </div>
   );
 }
 
 export default App;
-
-
-
